@@ -1,6 +1,11 @@
 {
   "owner": "wechuli",
   "repo": "allcheckspassed",
-  "version": "",
-  "url": "https://github.com/wechuli/allcheckspassed"
+  "version": "v2.2.0",
+  "commit_sha": "b0eaef5be76003932c9520e2b3dd03c85cc43d87",
+  "url": "https://github.com/wechuli/allcheckspassed",
+  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "1",
+  "harden_agent_version": "1"
 }
