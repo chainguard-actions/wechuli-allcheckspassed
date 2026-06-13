@@ -1,0 +1,35 @@
+name: Test basic usage with commit_sha
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Get current commit SHA
+        id: get-sha
+        run: |
+          SHA=$(git rev-parse HEAD)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "Current commit SHA: $SHA"
+
+      - id: action
+        uses: .
+        with:
+          commit_sha: ${{ steps.get-sha.outputs.sha }}
+          token: ${{ github.token }}
+          poll: "false"
+          fail_step: "false"
+          fail_on_missing_checks: "false"
+          treat_skipped_as_passed: "true"
+          treat_neutral_as_passed: "true"
+          show_job_summary: "false"
+          verbose: "false"
+
+      - name: Assert checks output exists
+        env:
+          CHECKS: ${{ steps.action.outputs.checks }}
+        run: |
+          echo "checks output: $CHECKS"
+          echo "PASS: action completed without error"
