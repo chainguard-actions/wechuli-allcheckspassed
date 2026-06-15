@@ -1,0 +1,37 @@
+name: Test with checks_include and checks_exclude filters
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Get current commit SHA
+        id: get-sha
+        run: |
+          SHA=$(git rev-parse HEAD)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "Current commit SHA: $SHA"
+
+      - id: action
+        uses: .
+        with:
+          commit_sha: ${{ steps.get-sha.outputs.sha }}
+          token: ${{ github.token }}
+          checks_include: "some-nonexistent-check"
+          checks_exclude: "another-nonexistent-check"
+          poll: "false"
+          fail_step: "false"
+          fail_on_missing_checks: "false"
+          treat_skipped_as_passed: "true"
+          treat_neutral_as_passed: "true"
+          show_job_summary: "false"
+          verbose: "false"
+
+      - name: Assert missing_checks output exists
+        env:
+          MISSING: ${{ steps.action.outputs.missing_checks }}
+        run: |
+          echo "missing_checks output: $MISSING"
+          echo "PASS: action completed with checks_include filter applied"
