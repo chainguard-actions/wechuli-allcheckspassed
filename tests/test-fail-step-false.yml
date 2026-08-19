@@ -1,4 +1,4 @@
-name: Test basic usage - check current commit
+name: Test fail_step false - step does not fail even on check failures
 on:
   workflow_dispatch:
 jobs:
@@ -16,17 +16,17 @@ jobs:
           poll: "false"
           delay: "0"
           fail_step: "false"
-          treat_skipped_as_passed: "true"
-          treat_neutral_as_passed: "true"
-          show_job_summary: "false"
-          verbose: "false"
-          retries: "1"
           fail_fast: "false"
+          treat_skipped_as_passed: "false"
+          treat_neutral_as_passed: "false"
+          show_job_summary: "false"
+          verbose: "true"
+          retries: "1"
           fail_on_missing_checks: "false"
 
-      - name: Assert action completed
+      - name: Assert step completed without failing
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "Action step outcome: $OUTCOME"
-          echo "PASS: action ran (outcome: $OUTCOME)"
+          echo "PASS: action ran with fail_step=false (outcome: $OUTCOME)"

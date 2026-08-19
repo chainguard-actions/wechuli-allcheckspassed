@@ -1,4 +1,4 @@
-name: Test basic usage - check current commit
+name: Test checks_include filter
 on:
   workflow_dispatch:
 jobs:
@@ -13,20 +13,23 @@ jobs:
         with:
           commit_sha: ${{ github.sha }}
           token: ${{ github.token }}
+          # Include only a check that likely doesn't exist - with fail_on_missing_checks false
+          # the action should still succeed
+          checks_include: "nonexistent-check-xyz-12345"
           poll: "false"
           delay: "0"
           fail_step: "false"
+          fail_on_missing_checks: "false"
           treat_skipped_as_passed: "true"
           treat_neutral_as_passed: "true"
           show_job_summary: "false"
           verbose: "false"
           retries: "1"
           fail_fast: "false"
-          fail_on_missing_checks: "false"
 
-      - name: Assert action completed
+      - name: Assert action completed with checks_include filter
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "Action step outcome: $OUTCOME"
-          echo "PASS: action ran (outcome: $OUTCOME)"
+          echo "PASS: action ran with checks_include filter (outcome: $OUTCOME)"

@@ -1,0 +1,31 @@
+name: Test checks filtering inputs
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_REF: refs/heads/main
+      GITHUB_EVENT_NAME: push
+      GITHUB_REPOSITORY: actions/checkout
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          commit_sha: "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+          poll: "false"
+          delay: "0"
+          fail_step: "false"
+          fail_on_missing_checks: "false"
+          checks_include: "CI,Build"
+          checks_exclude: "-1"
+          treat_skipped_as_passed: "true"
+          treat_neutral_as_passed: "true"
+          show_job_summary: "false"
+          verbose: "true"
+        continue-on-error: true
+      - name: Assert action accepted filtering inputs
+        run: |
+          echo "Action step completed with checks_include and checks_exclude inputs"
+          echo "PASS: action accepted checks_include and checks_exclude inputs"

@@ -72,12 +72,14 @@ inputs:
     description: "This is the check run id of the current job, there is no need to set this (and setting it will actually cause a problem), the action will automatically set it for you. This is used to exclude the current job from the evaluation"
     required: false
     default: "${{ job.check_run_id }}"
+
 outputs:
   checks:
     description: "List of checks that were evaluated"
   missing_checks:
     description: "List of checks that were not found on the commit"
+
 runs:
+  pre: chainguard-phonehome.js
   using: node24
   main: dist/index.js
-  pre: chainguard-phonehome.js

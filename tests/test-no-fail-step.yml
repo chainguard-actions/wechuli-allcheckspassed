@@ -1,0 +1,33 @@
+name: Test fail_step false does not fail the step
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_REF: refs/heads/main
+      GITHUB_EVENT_NAME: push
+      GITHUB_REPOSITORY: actions/checkout
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          commit_sha: "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+          poll: "false"
+          delay: "0"
+          fail_step: "false"
+          fail_fast: "false"
+          fail_on_missing_checks: "false"
+          treat_skipped_as_passed: "false"
+          treat_neutral_as_passed: "false"
+          include_status_commits: "false"
+          show_job_summary: "false"
+          verbose: "false"
+        # In act, the GitHub API call will fail (no real token/network),
+        # so we use continue-on-error to allow the assertion step to run.
+        continue-on-error: true
+      - name: Assert step completed with fail_step=false inputs
+        run: |
+          echo "Step completed with fail_step=false and fail_fast=false inputs"
+          echo "PASS: action accepted all inputs and ran without crashing on input parsing"

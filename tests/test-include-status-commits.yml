@@ -1,4 +1,4 @@
-name: Test basic usage - check current commit
+name: Test include_status_commits option
 on:
   workflow_dispatch:
 jobs:
@@ -13,6 +13,7 @@ jobs:
         with:
           commit_sha: ${{ github.sha }}
           token: ${{ github.token }}
+          include_status_commits: "true"
           poll: "false"
           delay: "0"
           fail_step: "false"
@@ -24,9 +25,9 @@ jobs:
           fail_fast: "false"
           fail_on_missing_checks: "false"
 
-      - name: Assert action completed
+      - name: Assert action completed with include_status_commits
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "Action step outcome: $OUTCOME"
-          echo "PASS: action ran (outcome: $OUTCOME)"
+          echo "PASS: action ran with include_status_commits=true (outcome: $OUTCOME)"
