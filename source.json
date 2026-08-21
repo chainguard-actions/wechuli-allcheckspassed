@@ -1,6 +1,16 @@
 {
   "owner": "wechuli",
   "repo": "allcheckspassed",
-  "version": "",
-  "url": "https://github.com/wechuli/allcheckspassed"
+  "version": "v2.5.0",
+  "commit_sha": "e4240aa9cc76fd6828ce27a71ad16c406c25adb3",
+  "url": "https://github.com/wechuli/allcheckspassed",
+  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "2",
+  "harden_agent_version": "2",
+  "node_artifact": {
+    "gcs_uri": "gs://prod-actions-node-artifacts/node-artifacts/wechuli/allcheckspassed/v2.5.0/sha256-71afe58c7e75c582f93d4c46eef04b887e12d77587693858c578a0cd9880dcd8.tar.gz",
+    "sha256": "71afe58c7e75c582f93d4c46eef04b887e12d77587693858c578a0cd9880dcd8",
+    "size_bytes": 1317766
+  }
 }

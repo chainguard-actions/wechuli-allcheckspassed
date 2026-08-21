@@ -1,0 +1,96 @@
+{
+  "name": "allcheckspassed",
+  "description": "GitHub Action to wait and confirm that all checks reported on a commit have passed",
+  "version": "2.5.0",
+  "author": "wechuli",
+  "private": false,
+  "homepage": "https://github.com/wechuli/allcheckspassed",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wechuli/allcheckspassed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wechuli/allcheckspassed/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup",
+    "typescript",
+    "checks"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bundle": "npm run format:write && npm run package",
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node24 --outfile=dist/index.js",
+    "test": "jest",
+    "all": "npm run build && npm run test && npm run package"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "resolver": "<rootDir>/jest.resolver.cjs",
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.test.json"
+        }
+      ],
+      "^.+\\.m?js$": [
+        "babel-jest",
+        {
+          "configFile": "./babel.config.cjs"
+        }
+      ]
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@actions|@octokit|before-after-hook|universal-user-agent|yaml)/)"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "@octokit/rest": "^22.0.1",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.0.1",
+    "esbuild": "^0.28.1",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3"
+  }
+}

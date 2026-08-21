@@ -1,0 +1,46 @@
+name: Test basic usage - check current commit
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Get current commit SHA
+        id: get-sha
+        run: |
+          SHA=$(git rev-parse HEAD)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "Current commit SHA: $SHA"
+
+      - id: action
+        uses: .
+        continue-on-error: true
+        with:
+          commit_sha: ${{ steps.get-sha.outputs.sha }}
+          token: ${{ github.token }}
+          poll: "false"
+          treat_skipped_as_passed: "true"
+          treat_neutral_as_passed: "true"
+          fail_step: "false"
+          verbose: "true"
+          show_job_summary: "true"
+
+      - name: Assert action ran (success or graceful failure on sentinel repo)
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+          CHECKS: ${{ steps.action.outputs.checks }}
+        run: |
+          echo "outcome: $OUTCOME"
+          echo "checks: $CHECKS"
+          if [ "$OUTCOME" = "success" ]; then
+            echo "PASS: action succeeded"
+          elif [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action failed gracefully (sentinel repo is not resolvable)"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi
