@@ -11,6 +11,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v2.0.0 | [`v2.0.0`](https://github.com/chainguard-actions/wechuli-allcheckspassed/tree/v2.0.0) | [`5b5009f`](https://github.com/wechuli/allcheckspassed/commit/5b5009ffd707b7c6759574c984bb666034b441eb) |
 | v2.2.0 | [`v2.2.0`](https://github.com/chainguard-actions/wechuli-allcheckspassed/tree/v2.2.0) | [`b0eaef5`](https://github.com/wechuli/allcheckspassed/commit/b0eaef5be76003932c9520e2b3dd03c85cc43d87) |
 | v2.3.0 | [`v2.3.0`](https://github.com/chainguard-actions/wechuli-allcheckspassed/tree/v2.3.0) | [`1d00cf0`](https://github.com/wechuli/allcheckspassed/commit/1d00cf0c34c4b0805db8866d8913f22e7125301e) |
+| v2.5.0 | [`v2.5.0`](https://github.com/chainguard-actions/wechuli-allcheckspassed/tree/v2.5.0) | [`e4240aa`](https://github.com/wechuli/allcheckspassed/commit/e4240aa9cc76fd6828ce27a71ad16c406c25adb3) |
 
 ## Privacy
 
